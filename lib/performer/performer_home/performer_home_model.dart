@@ -5,6 +5,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/flutter_flow_youtube_player.dart';
+import '/flutter_flow/request_manager.dart';
+
 import 'performer_home_widget.dart' show PerformerHomeWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,24 @@ class PerformerHomeModel extends FlutterFlowModel<PerformerHomeWidget> {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
+  /// Query cache managers for this widget.
+
+  final _performerBookingsManager =
+      StreamRequestManager<List<BookingRequestsRecord>>();
+  Stream<List<BookingRequestsRecord>> performerBookings({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<BookingRequestsRecord>> Function() requestFn,
+  }) =>
+      _performerBookingsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearPerformerBookingsCache() => _performerBookingsManager.clear();
+  void clearPerformerBookingsCacheKey(String? uniqueKey) =>
+      _performerBookingsManager.clearRequest(uniqueKey);
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
@@ -33,6 +53,10 @@ class PerformerHomeModel extends FlutterFlowModel<PerformerHomeWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
+
+    /// Dispose query cache managers for this widget.
+
+    clearPerformerBookingsCache();
   }
 
   /// Action blocks are added here.

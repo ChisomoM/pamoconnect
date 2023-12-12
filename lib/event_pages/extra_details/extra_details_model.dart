@@ -37,9 +37,9 @@ class ExtraDetailsModel extends FlutterFlowModel<ExtraDetailsWidget> {
   FocusNode? refundPolicyFocusNode;
   TextEditingController? refundPolicyController;
   String? Function(BuildContext, String?)? refundPolicyControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for PrivacyDropDown widget.
+  String? privacyDropDownValue;
+  FormFieldController<String>? privacyDropDownValueController;
 
   /// Initialization and disposal methods.
 

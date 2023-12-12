@@ -78,13 +78,15 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   Widget build(BuildContext context) => _loading
-      ? Container(
-          color: Colors.transparent,
-          child: Image.asset(
-            'assets/images/Pamo_Connect_small_transparent.png',
-            fit: BoxFit.fitWidth,
-          ),
-        )
+      ? isWeb
+          ? Container()
+          : Container(
+              color: Colors.transparent,
+              child: Image.asset(
+                'assets/images/Pamo_Connect_small_transparent.png',
+                fit: BoxFit.fitWidth,
+              ),
+            )
       : widget.child;
 }
 
@@ -129,7 +131,11 @@ final parametersBuilderMap =
           'eventDetails': getParameter<DocumentReference>(data, 'eventDetails'),
         },
       ),
-  'assistanttt': ParameterData.none(),
+  'assistanttt': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
   'connectCenter': (data) async => ParameterData(
         allParams: {
           'eve': getParameter<DocumentReference>(data, 'eve'),
@@ -206,21 +212,11 @@ final parametersBuilderMap =
           'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
         },
       ),
-  'AddmissionCopy': (data) async => ParameterData(
-        allParams: {
-          'event': getParameter<DocumentReference>(data, 'event'),
-        },
-      ),
   'loginPage': ParameterData.none(),
   'signUpPage': ParameterData.none(),
   'editVenue': (data) async => ParameterData(
         allParams: {
           'venueRef': getParameter<DocumentReference>(data, 'venueRef'),
-        },
-      ),
-  'createpromo': (data) async => ParameterData(
-        allParams: {
-          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
         },
       ),
   'extraDetails': (data) async => ParameterData(
@@ -246,6 +242,33 @@ final parametersBuilderMap =
       ),
   'performerHome': ParameterData.none(),
   'editPerformerP': ParameterData.none(),
+  'addVenuekeep': (data) async => ParameterData(
+        allParams: {
+          'event': getParameter<DocumentReference>(data, 'event'),
+        },
+      ),
+  'chat_ai_Screen': ParameterData.none(),
+  'payments': ParameterData.none(),
+  'promoCodes': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
+  'List10OrderHistory': ParameterData.none(),
+  'assistantttCopy': (data) async => ParameterData(
+        allParams: {
+          'eventRef': getParameter<DocumentReference>(data, 'eventRef'),
+        },
+      ),
+  'underConstructionCopy': ParameterData.none(),
+  'support_TicketList': ParameterData.none(),
+  'support_SubmitTicket': ParameterData.none(),
+  'support_TicketDetails': (data) async => ParameterData(
+        allParams: {
+          'ticketRef': await getDocumentParameter<SupportTicketsRecord>(
+              data, 'ticketRef', SupportTicketsRecord.fromSnapshot),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

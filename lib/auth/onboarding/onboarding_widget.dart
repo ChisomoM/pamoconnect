@@ -666,55 +666,61 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      logFirebaseEvent(
-                                          'ONBOARDING_PAGE_NEXT_BTN_ON_TAP');
-                                      logFirebaseEvent(
-                                          'Button_widget_animation');
-                                      if (animationsMap[
-                                              'columnOnActionTriggerAnimation1'] !=
-                                          null) {
-                                        await animationsMap[
-                                                'columnOnActionTriggerAnimation1']!
-                                            .controller
-                                            .forward(from: 0.0);
-                                      }
-                                      logFirebaseEvent('Button_page_view');
-                                      await _model.pageViewController?.nextPage(
-                                        duration: Duration(milliseconds: 300),
-                                        curve: Curves.ease,
-                                      );
-                                    },
-                                    text: 'Next',
-                                    options: FFButtonOptions(
-                                      width: double.infinity,
-                                      height: 50.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Montserrat',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBtnText,
-                                          ),
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        logFirebaseEvent(
+                                            'ONBOARDING_PAGE_NEXT_BTN_ON_TAP');
+                                        logFirebaseEvent(
+                                            'Button_widget_animation');
+                                        if (animationsMap[
+                                                'columnOnActionTriggerAnimation1'] !=
+                                            null) {
+                                          await animationsMap[
+                                                  'columnOnActionTriggerAnimation1']!
+                                              .controller
+                                              .forward(from: 0.0);
+                                        }
+                                        logFirebaseEvent('Button_page_view');
+                                        await _model.pageViewController
+                                            ?.nextPage(
+                                          duration: Duration(milliseconds: 300),
+                                          curve: Curves.ease,
+                                        );
+                                      },
+                                      text: 'Next',
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: 50.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBtnText,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'buttonOnPageLoadAnimation']!),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'buttonOnPageLoadAnimation']!),
+                                  ),
                                 ),
                               ],
                             ),
@@ -1124,16 +1130,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     onPressed: () async {
                                       logFirebaseEvent(
                                           'ONBOARDING_PAGE_NEXT_BTN_ON_TAP');
-                                      logFirebaseEvent(
-                                          'Button_widget_animation');
-                                      if (animationsMap[
-                                              'columnOnActionTriggerAnimation4'] !=
-                                          null) {
-                                        await animationsMap[
-                                                'columnOnActionTriggerAnimation4']!
-                                            .controller
-                                            .forward(from: 0.0);
-                                      }
                                       logFirebaseEvent('Button_page_view');
                                       await _model.pageViewController
                                           ?.animateToPage(

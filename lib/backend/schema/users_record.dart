@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -124,6 +125,31 @@ class UsersRecord extends FirestoreRecord {
   String get highlightVideoString => _highlightVideoString ?? '';
   bool hasHighlightVideoString() => _highlightVideoString != null;
 
+  // "is_verified" field.
+  bool? _isVerified;
+  bool get isVerified => _isVerified ?? false;
+  bool hasIsVerified() => _isVerified != null;
+
+  // "shortDescription" field.
+  String? _shortDescription;
+  String get shortDescription => _shortDescription ?? '';
+  bool hasShortDescription() => _shortDescription != null;
+
+  // "last_active_time" field.
+  DateTime? _lastActiveTime;
+  DateTime? get lastActiveTime => _lastActiveTime;
+  bool hasLastActiveTime() => _lastActiveTime != null;
+
+  // "role" field.
+  String? _role;
+  String get role => _role ?? '';
+  bool hasRole() => _role != null;
+
+  // "title" field.
+  String? _title;
+  String get title => _title ?? '';
+  bool hasTitle() => _title != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -146,6 +172,11 @@ class UsersRecord extends FirestoreRecord {
     _linktree = snapshotData['linktree'] as String?;
     _highlightVideo = snapshotData['highlight_video'] as String?;
     _highlightVideoString = snapshotData['highlight_video_string'] as String?;
+    _isVerified = snapshotData['is_verified'] as bool?;
+    _shortDescription = snapshotData['shortDescription'] as String?;
+    _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
+    _role = snapshotData['role'] as String?;
+    _title = snapshotData['title'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -224,6 +255,15 @@ class UsersRecord extends FirestoreRecord {
           'linktree': snapshot.data['linktree'],
           'highlight_video': snapshot.data['highlight_video'],
           'highlight_video_string': snapshot.data['highlight_video_string'],
+          'is_verified': snapshot.data['is_verified'],
+          'shortDescription': snapshot.data['shortDescription'],
+          'last_active_time': convertAlgoliaParam(
+            snapshot.data['last_active_time'],
+            ParamType.DateTime,
+            false,
+          ),
+          'role': snapshot.data['role'],
+          'title': snapshot.data['title'],
         },
         UsersRecord.collection.doc(snapshot.objectID),
       );
@@ -279,6 +319,11 @@ Map<String, dynamic> createUsersRecordData({
   String? linktree,
   String? highlightVideo,
   String? highlightVideoString,
+  bool? isVerified,
+  String? shortDescription,
+  DateTime? lastActiveTime,
+  String? role,
+  String? title,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -301,6 +346,11 @@ Map<String, dynamic> createUsersRecordData({
       'linktree': linktree,
       'highlight_video': highlightVideo,
       'highlight_video_string': highlightVideoString,
+      'is_verified': isVerified,
+      'shortDescription': shortDescription,
+      'last_active_time': lastActiveTime,
+      'role': role,
+      'title': title,
     }.withoutNulls,
   );
 
@@ -333,7 +383,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.city == e2?.city &&
         e1?.linktree == e2?.linktree &&
         e1?.highlightVideo == e2?.highlightVideo &&
-        e1?.highlightVideoString == e2?.highlightVideoString;
+        e1?.highlightVideoString == e2?.highlightVideoString &&
+        e1?.isVerified == e2?.isVerified &&
+        e1?.shortDescription == e2?.shortDescription &&
+        e1?.lastActiveTime == e2?.lastActiveTime &&
+        e1?.role == e2?.role &&
+        e1?.title == e2?.title;
   }
 
   @override
@@ -358,7 +413,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.city,
         e?.linktree,
         e?.highlightVideo,
-        e?.highlightVideoString
+        e?.highlightVideoString,
+        e?.isVerified,
+        e?.shortDescription,
+        e?.lastActiveTime,
+        e?.role,
+        e?.title
       ]);
 
   @override

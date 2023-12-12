@@ -108,6 +108,7 @@ class _DeletedPageWidgetState extends State<DeletedPageWidget> {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(

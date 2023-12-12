@@ -83,7 +83,7 @@ class _NoTicketsWidgetState extends State<NoTicketsWidget> {
             children: [
               Expanded(
                 child: Text(
-                  'Create a ticket for it to show up here',
+                  'Tickets will show up here',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodySmall.override(
                         fontFamily: 'Montserrat',

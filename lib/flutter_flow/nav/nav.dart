@@ -8,6 +8,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -146,7 +147,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'assistanttt',
               path: 'assistanttt',
-              builder: (context, params) => AssistantttWidget(),
+              builder: (context, params) => AssistantttWidget(
+                eventRef: params.getParam(
+                    'eventRef', ParamType.DocumentReference, false, ['events']),
+              ),
             ),
             FFRoute(
               name: 'connectCenter',
@@ -320,16 +324,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'AddmissionCopy',
-              path: 'addmissionCopy',
-              builder: (context, params) => AddmissionCopyWidget(
-                event: params.getParam(
-                    'event', ParamType.DocumentReference, false, ['events']),
-                tickets: params.getParam<DocumentReference>('tickets',
-                    ParamType.DocumentReference, true, ['events', 'tickets']),
-              ),
-            ),
-            FFRoute(
               name: 'loginPage',
               path: 'loginPage',
               builder: (context, params) => LoginPageWidget(),
@@ -345,14 +339,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => EditVenueWidget(
                 venueRef: params.getParam(
                     'venueRef', ParamType.DocumentReference, false, ['venues']),
-              ),
-            ),
-            FFRoute(
-              name: 'createpromo',
-              path: 'createpromo',
-              builder: (context, params) => CreatepromoWidget(
-                eventRef: params.getParam(
-                    'eventRef', ParamType.DocumentReference, false, ['events']),
               ),
             ),
             FFRoute(
@@ -395,6 +381,71 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'editPerformerP',
               path: 'editPerformerP',
               builder: (context, params) => EditPerformerPWidget(),
+            ),
+            FFRoute(
+              name: 'addVenuekeep',
+              path: 'addVenuekeep',
+              builder: (context, params) => AddVenuekeepWidget(
+                event: params.getParam(
+                    'event', ParamType.DocumentReference, false, ['events']),
+              ),
+            ),
+            FFRoute(
+              name: 'chat_ai_Screen',
+              path: 'chatAiScreen',
+              builder: (context, params) => ChatAiScreenWidget(),
+            ),
+            FFRoute(
+              name: 'payments',
+              path: 'payments',
+              builder: (context, params) => PaymentsWidget(),
+            ),
+            FFRoute(
+              name: 'promoCodes',
+              path: 'promoCodes',
+              builder: (context, params) => PromoCodesWidget(
+                eventRef: params.getParam(
+                    'eventRef', ParamType.DocumentReference, false, ['events']),
+              ),
+            ),
+            FFRoute(
+              name: 'List10OrderHistory',
+              path: 'list10OrderHistory',
+              builder: (context, params) => List10OrderHistoryWidget(),
+            ),
+            FFRoute(
+              name: 'assistantttCopy',
+              path: 'assistantttCopy',
+              builder: (context, params) => AssistantttCopyWidget(
+                eventRef: params.getParam(
+                    'eventRef', ParamType.DocumentReference, false, ['events']),
+              ),
+            ),
+            FFRoute(
+              name: 'underConstructionCopy',
+              path: 'underConstructionCopy',
+              builder: (context, params) => UnderConstructionCopyWidget(),
+            ),
+            FFRoute(
+              name: 'support_TicketList',
+              path: 'supportTicketList',
+              builder: (context, params) => SupportTicketListWidget(),
+            ),
+            FFRoute(
+              name: 'support_SubmitTicket',
+              path: 'supportSubmitTicket',
+              builder: (context, params) => SupportSubmitTicketWidget(),
+            ),
+            FFRoute(
+              name: 'support_TicketDetails',
+              path: 'supportTicketDetails',
+              asyncParams: {
+                'ticketRef': getDoc(
+                    ['supportTickets'], SupportTicketsRecord.fromSnapshot),
+              },
+              builder: (context, params) => SupportTicketDetailsWidget(
+                ticketRef: params.getParam('ticketRef', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -577,13 +628,15 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: Colors.transparent,
-                  child: Image.asset(
-                    'assets/images/Pamo_Connect_small_transparent.png',
-                    fit: BoxFit.fitWidth,
-                  ),
-                )
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: Colors.transparent,
+                      child: Image.asset(
+                        'assets/images/Pamo_Connect_small_transparent.png',
+                        fit: BoxFit.fitWidth,
+                      ),
+                    )
               : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
@@ -641,7 +694,8 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
   void initState() {
     super.initState();
     // Handle erroneous links from Firebase Dynamic Links.
-    if (widget.state.location.startsWith('/link?request_ip_version')) {
+    if (widget.state.location.startsWith('/link') &&
+        widget.state.location.contains('request_ip_version')) {
       SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
     }
   }

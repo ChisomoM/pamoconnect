@@ -56,6 +56,9 @@ class _SelectNextWidgetState extends State<SelectNextWidget> {
       ),
       child: Container(
         width: double.infinity,
+        constraints: BoxConstraints(
+          maxWidth: 980.0,
+        ),
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(

@@ -32,10 +32,10 @@
   <!-- Open Graph & SEO tags -->
   <meta property="og:title" content="Pamo Connect" />
   <meta property="og:description" content="Built with FlutterFlow." />
-  <meta property="og:image" content="/assets/assets/images/Pamo_Connect_Beta.png" /> 
+  <meta property="og:image" content="/assets/assets/images/Pamo_Connect_small_transparent.png" /> 
   <meta name="twitter:title" content="Pamo Connect" />
   <meta name="twitter:description" content="Built with FlutterFlow." />
-  <meta name="twitter:image" content="/assets/assets/images/Pamo_Connect_Beta.png" />
+  <meta name="twitter:image" content="/assets/assets/images/Pamo_Connect_small_transparent.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <title> Pamo Connect </title>
@@ -55,8 +55,12 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0Yc_u_VqFa2B3W1qc7UfPSV9-65pVPq4"></script>
+  
+  
+  
   <script>
-    
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -67,16 +71,14 @@
         },
         onEntrypointLoaded: async function(engineInitializer) {
           // Initialize the Flutter engine
-          let appRunner = await engineInitializer.initializeEngine();
+          let appRunner = await engineInitializer.initializeEngine({
+            useColorEmoji: true,
+          });
           // Run the app
           await appRunner.runApp();
         }
       });
     });
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0Yc_u_VqFa2B3W1qc7UfPSV9-65pVPq4"></script>
-  
-  
-  
 </body>
 </html>

@@ -22,6 +22,9 @@ import 'schema/verified_tickets_record.dart';
 import 'schema/promo_codes_record.dart';
 import 'schema/my_tickets_record.dart';
 import 'schema/booking_requests_record.dart';
+import 'schema/moments_record.dart';
+import 'schema/support_tickets_record.dart';
+import 'schema/withdraw_requests_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -46,6 +49,9 @@ export 'schema/verified_tickets_record.dart';
 export 'schema/promo_codes_record.dart';
 export 'schema/my_tickets_record.dart';
 export 'schema/booking_requests_record.dart';
+export 'schema/moments_record.dart';
+export 'schema/support_tickets_record.dart';
+export 'schema/withdraw_requests_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -698,6 +704,117 @@ Future<List<BookingRequestsRecord>> queryBookingRequestsRecordOnce({
     queryCollectionOnce(
       BookingRequestsRecord.collection(parent),
       BookingRequestsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query MomentsRecords (as a Stream and as a Future).
+Future<int> queryMomentsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      MomentsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<MomentsRecord>> queryMomentsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      MomentsRecord.collection,
+      MomentsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<MomentsRecord>> queryMomentsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      MomentsRecord.collection,
+      MomentsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query SupportTicketsRecords (as a Stream and as a Future).
+Future<int> querySupportTicketsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      SupportTicketsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<SupportTicketsRecord>> querySupportTicketsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      SupportTicketsRecord.collection,
+      SupportTicketsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<SupportTicketsRecord>> querySupportTicketsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      SupportTicketsRecord.collection,
+      SupportTicketsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query WithdrawRequestsRecords (as a Stream and as a Future).
+Future<int> queryWithdrawRequestsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      WithdrawRequestsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<WithdrawRequestsRecord>> queryWithdrawRequestsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      WithdrawRequestsRecord.collection,
+      WithdrawRequestsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<WithdrawRequestsRecord>> queryWithdrawRequestsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      WithdrawRequestsRecord.collection,
+      WithdrawRequestsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

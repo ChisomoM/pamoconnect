@@ -16,6 +16,7 @@ class EditPerformerPModel extends FlutterFlowModel<EditPerformerPWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  final formKey = GlobalKey<FormState>();
   // State field(s) for bio widget.
   FocusNode? bioFocusNode;
   TextEditingController? bioController;

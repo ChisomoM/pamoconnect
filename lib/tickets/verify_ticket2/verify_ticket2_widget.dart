@@ -15,14 +15,10 @@ export 'verify_ticket2_model.dart';
 class VerifyTicket2Widget extends StatefulWidget {
   const VerifyTicket2Widget({
     Key? key,
-    this.ticketID,
-    this.verified,
-    required this.item,
+    required this.verifiedTickets,
   }) : super(key: key);
 
-  final String? ticketID;
-  final bool? verified;
-  final DocumentReference? item;
+  final DocumentReference? verifiedTickets;
 
   @override
   _VerifyTicket2WidgetState createState() => _VerifyTicket2WidgetState();
@@ -57,7 +53,7 @@ class _VerifyTicket2WidgetState extends State<VerifyTicket2Widget> {
     context.watch<FFAppState>();
 
     return StreamBuilder<VerifiedTicketsRecord>(
-      stream: VerifiedTicketsRecord.getDocument(widget.item!),
+      stream: VerifiedTicketsRecord.getDocument(widget.verifiedTickets!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -108,7 +104,7 @@ class _VerifyTicket2WidgetState extends State<VerifyTicket2Widget> {
                     ),
                   ),
                   Text(
-                    'Ticket ID: ${widget.ticketID}',
+                    'Ticket ID: ${containerVerifiedTicketsRecord.ticket.ticketId}',
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                           fontFamily: 'Montserrat',
                           color: FlutterFlowTheme.of(context).primaryText,
@@ -153,7 +149,7 @@ class _VerifyTicket2WidgetState extends State<VerifyTicket2Widget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 0.0, 12.0, 0.0),
                               child: Text(
-                                'This Ticket has been checked in',
+                                'This Ticket has already been used',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodySmall
@@ -172,24 +168,44 @@ class _VerifyTicket2WidgetState extends State<VerifyTicket2Widget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 16.0, 0.0),
                     child: FFButtonWidget(
-                      onPressed:
-                          containerVerifiedTicketsRecord.ticket.hasCheckedIn ==
-                                  true
-                              ? null
-                              : () async {
-                                  logFirebaseEvent(
-                                      'VERIFY_TICKET2_COMP_VERIFY_BTN_ON_TAP');
-                                  logFirebaseEvent('Button_backend_call');
+                      onPressed: containerVerifiedTicketsRecord
+                                  .ticket.hasCheckedIn ==
+                              true
+                          ? null
+                          : () async {
+                              logFirebaseEvent(
+                                  'VERIFY_TICKET2_VERIFY_&_CHECK_IN_BTN_ON_');
+                              logFirebaseEvent('Button_backend_call');
 
-                                  await containerVerifiedTicketsRecord.reference
-                                      .update(createVerifiedTicketsRecordData(
-                                    ticket: createCartItemTypeStruct(
-                                      hasCheckedIn: true,
-                                      clearUnsetFields: false,
+                              await containerVerifiedTicketsRecord.reference
+                                  .update(createVerifiedTicketsRecordData(
+                                ticket: createCartItemTypeStruct(
+                                  hasCheckedIn: true,
+                                  dateCheckedIn: getCurrentTimestamp,
+                                  clearUnsetFields: false,
+                                ),
+                              ));
+                              logFirebaseEvent('Button_show_snack_bar');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Check in Successful',
+                                    style: GoogleFonts.getFont(
+                                      'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                     ),
-                                  ));
-                                },
-                      text: 'Verify',
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                              );
+                              logFirebaseEvent(
+                                  'Button_close_dialog,_drawer,_etc');
+                              Navigator.pop(context);
+                            },
+                      text: 'Verify & Check in',
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50.0,
@@ -202,6 +218,7 @@ class _VerifyTicket2WidgetState extends State<VerifyTicket2Widget> {
                             FlutterFlowTheme.of(context).titleMedium.override(
                                   fontFamily: 'Montserrat',
                                   color: Colors.white,
+                                  fontSize: 16.0,
                                 ),
                         elevation: 3.0,
                         borderSide: BorderSide(

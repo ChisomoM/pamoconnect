@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -200,6 +201,11 @@ class EventsRecord extends FirestoreRecord {
   String get dressCode => _dressCode ?? '';
   bool hasDressCode() => _dressCode != null;
 
+  // "age_ranges" field.
+  AgeRangesStruct? _ageRanges;
+  AgeRangesStruct get ageRanges => _ageRanges ?? AgeRangesStruct();
+  bool hasAgeRanges() => _ageRanges != null;
+
   void _initializeFields() {
     _eventName = snapshotData['event_name'] as String?;
     _eventOrg = snapshotData['event_Org'] as DocumentReference?;
@@ -238,6 +244,7 @@ class EventsRecord extends FirestoreRecord {
     _lowestTicketPrice =
         castToType<double>(snapshotData['lowest_ticket_price']);
     _dressCode = snapshotData['dress_code'] as String?;
+    _ageRanges = AgeRangesStruct.maybeFromMap(snapshotData['age_ranges']);
   }
 
   static CollectionReference get collection =>
@@ -385,6 +392,9 @@ class EventsRecord extends FirestoreRecord {
             false,
           ),
           'dress_code': snapshot.data['dress_code'],
+          'age_ranges':
+              AgeRangesStruct.fromAlgoliaData(snapshot.data['age_ranges'] ?? {})
+                  .toMap(),
         },
         EventsRecord.collection.doc(snapshot.objectID),
       );
@@ -450,6 +460,7 @@ Map<String, dynamic> createEventsRecordData({
   String? refundPolicy,
   double? lowestTicketPrice,
   String? dressCode,
+  AgeRangesStruct? ageRanges,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -482,8 +493,12 @@ Map<String, dynamic> createEventsRecordData({
       'refund_policy': refundPolicy,
       'lowest_ticket_price': lowestTicketPrice,
       'dress_code': dressCode,
+      'age_ranges': AgeRangesStruct().toMap(),
     }.withoutNulls,
   );
+
+  // Handle nested data for "age_ranges" field.
+  addAgeRangesStructData(firestoreData, ageRanges, 'age_ranges');
 
   return firestoreData;
 }
@@ -529,7 +544,8 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
         e1?.ageLimit == e2?.ageLimit &&
         e1?.refundPolicy == e2?.refundPolicy &&
         e1?.lowestTicketPrice == e2?.lowestTicketPrice &&
-        e1?.dressCode == e2?.dressCode;
+        e1?.dressCode == e2?.dressCode &&
+        e1?.ageRanges == e2?.ageRanges;
   }
 
   @override
@@ -569,7 +585,8 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
         e?.ageLimit,
         e?.refundPolicy,
         e?.lowestTicketPrice,
-        e?.dressCode
+        e?.dressCode,
+        e?.ageRanges
       ]);
 
   @override

@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/tickets/verify_ticket/verify_ticket_widget.dart';
+import '/tickets/verify_ticket2/verify_ticket2_widget.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'addmission_widget.dart' show AddmissionWidget;
 import 'package:aligned_dialog/aligned_dialog.dart';
@@ -30,9 +30,9 @@ class AddmissionModel extends FlutterFlowModel<AddmissionWidget> {
   String? Function(BuildContext, String?)? ticketIDFieldControllerValidator;
   var code = '';
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  OrdersRecord? orderScan;
+  VerifiedTicketsRecord? orderScan;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  OrdersRecord? order;
+  VerifiedTicketsRecord? order;
 
   /// Initialization and disposal methods.
 

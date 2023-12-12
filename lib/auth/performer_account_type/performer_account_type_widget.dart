@@ -77,6 +77,9 @@ class _PerformerAccountTypeWidgetState extends State<PerformerAccountTypeWidget>
     return Container(
       width: double.infinity,
       height: 600.0,
+      constraints: BoxConstraints(
+        maxWidth: 980.0,
+      ),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
@@ -130,7 +133,7 @@ class _PerformerAccountTypeWidgetState extends State<PerformerAccountTypeWidget>
                 logFirebaseEvent('Button_backend_call');
 
                 await currentUserReference!.update(createUsersRecordData(
-                  accountType: 'Performer',
+                  accountType: FFAppConstants.Performer,
                 ));
                 logFirebaseEvent('Button_navigate_to');
 

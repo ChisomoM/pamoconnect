@@ -142,7 +142,7 @@ class LightModeTheme extends FlutterFlowTheme {
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF110637);
-  late Color secondary = const Color(0xFF39D2C0);
+  late Color secondary = const Color(0xFFEB0D70);
   late Color tertiary = const Color(0xFFEE8B60);
   late Color alternate = const Color(0xFF110637);
   late Color primaryText = const Color(0xFF101213);
@@ -288,14 +288,14 @@ class ThemeTypography extends Typography {
         'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
-        fontSize: 12.0,
+        fontSize: 14.0,
       );
   String get labelSmallFamily => 'Montserrat';
   TextStyle get labelSmall => GoogleFonts.getFont(
         'Montserrat',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
-        fontSize: 11.0,
+        fontSize: 12.0,
       );
   String get bodyLargeFamily => 'Montserrat';
   TextStyle get bodyLarge => GoogleFonts.getFont(
@@ -308,15 +308,15 @@ class ThemeTypography extends Typography {
   TextStyle get bodyMedium => GoogleFonts.getFont(
         'Montserrat',
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
   String get bodySmallFamily => 'Montserrat';
   TextStyle get bodySmall => GoogleFonts.getFont(
         'Montserrat',
         color: theme.secondaryText,
-        fontWeight: FontWeight.w600,
-        fontSize: 14.0,
+        fontWeight: FontWeight.normal,
+        fontSize: 12.0,
       );
 }
 
@@ -329,7 +329,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF4B39EF);
-  late Color secondary = const Color(0xFF39D2C0);
+  late Color secondary = const Color(0xFFEB0D70);
   late Color tertiary = const Color(0xFFEE8B60);
   late Color alternate = const Color(0xFF4B39EF);
   late Color primaryText = const Color(0xFFFFFFFF);

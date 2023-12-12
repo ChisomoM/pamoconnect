@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/under_cons_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -429,10 +428,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                           child: TabBarView(
                             controller: _model.tabBarController,
                             children: [
-                              wrapWithModel(
-                                model: _model.underConsModel,
-                                updateCallback: () => setState(() {}),
-                                child: UnderConsWidget(),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [],
                               ),
                             ],
                           ),

@@ -18,12 +18,12 @@ export '/venue_pages/create_venue/create_venue_widget.dart'
     show CreateVenueWidget;
 export '/venue_pages/venue_details/venue_details_widget.dart'
     show VenueDetailsWidget;
-export '/event_pages/booking_pages/add_performer/add_performer_widget.dart'
+export '/pages/booking_pages/add_performer/add_performer_widget.dart'
     show AddPerformerWidget;
 export '/profile/profile_widget.dart' show ProfileWidget;
 export '/event_pages/create_event/create_event_widget.dart'
     show CreateEventWidget;
-export '/event_pages/booking_pages/add_venue/add_venue_widget.dart'
+export '/pages/booking_pages/add_venue/add_venue_widget.dart'
     show AddVenueWidget;
 export '/pages/settings/settings/settings_widget.dart' show SettingsWidget;
 export '/pages/settings/account_settings/account_settings_widget.dart'
@@ -35,7 +35,7 @@ export '/pages/settings/account_details/account_details_widget.dart'
 export '/test_page/test_page_widget.dart' show TestPageWidget;
 export '/auth/reset_password/reset_password_widget.dart'
     show ResetPasswordWidget;
-export '/event_pages/booking_pages/accept_invite/accept_invite_widget.dart'
+export '/pages/booking_pages/accept_invite/accept_invite_widget.dart'
     show AcceptInviteWidget;
 export '/main_pages/notifications_list/notifications_list_widget.dart'
     show NotificationsListWidget;
@@ -45,17 +45,14 @@ export '/chat/all_chats_page/all_chats_page_widget.dart'
 export '/auth/onboarding/onboarding_widget.dart' show OnboardingWidget;
 export '/event_pages/event_details_view/event_details_view_widget.dart'
     show EventDetailsViewWidget;
-export '/event_pages/booking_pages/accept_request/accept_request_widget.dart'
+export '/pages/booking_pages/accept_request/accept_request_widget.dart'
     show AcceptRequestWidget;
 export '/uncategorized/deleted_page/deleted_page_widget.dart'
     show DeletedPageWidget;
 export '/stats/stats/stats_widget.dart' show StatsWidget;
-export '/event_pages/addmission_copy/addmission_copy_widget.dart'
-    show AddmissionCopyWidget;
 export '/auth/login_page/login_page_widget.dart' show LoginPageWidget;
 export '/auth/sign_up_page/sign_up_page_widget.dart' show SignUpPageWidget;
 export '/venue_pages/edit_venue/edit_venue_widget.dart' show EditVenueWidget;
-export '/createpromo/createpromo_widget.dart' show CreatepromoWidget;
 export '/event_pages/extra_details/extra_details_widget.dart'
     show ExtraDetailsWidget;
 export '/event_pages/event_tickets/event_tickets_widget.dart'
@@ -66,3 +63,21 @@ export '/performer/performer_home/performer_home_widget.dart'
     show PerformerHomeWidget;
 export '/performer/edit_performer_p/edit_performer_p_widget.dart'
     show EditPerformerPWidget;
+export '/pages/booking_pages/add_venuekeep/add_venuekeep_widget.dart'
+    show AddVenuekeepWidget;
+export '/chat_g_p_t_component/chat_ai_screen/chat_ai_screen_widget.dart'
+    show ChatAiScreenWidget;
+export '/payments/payments_widget.dart' show PaymentsWidget;
+export '/tickets/promo_codes/promo_codes_widget.dart' show PromoCodesWidget;
+export '/list10_order_history/list10_order_history_widget.dart'
+    show List10OrderHistoryWidget;
+export '/uncategorized/assistanttt_copy/assistanttt_copy_widget.dart'
+    show AssistantttCopyWidget;
+export '/under_construction_copy/under_construction_copy_widget.dart'
+    show UnderConstructionCopyWidget;
+export '/support_ticket/support_ticket_list/support_ticket_list_widget.dart'
+    show SupportTicketListWidget;
+export '/support_ticket/support_submit_ticket/support_submit_ticket_widget.dart'
+    show SupportSubmitTicketWidget;
+export '/support_ticket/support_ticket_details/support_ticket_details_widget.dart'
+    show SupportTicketDetailsWidget;

@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -21,10 +22,16 @@ class VerifiedTicketsRecord extends FirestoreRecord {
   CartItemTypeStruct get ticket => _ticket ?? CartItemTypeStruct();
   bool hasTicket() => _ticket != null;
 
+  // "is_verified" field.
+  bool? _isVerified;
+  bool get isVerified => _isVerified ?? false;
+  bool hasIsVerified() => _isVerified != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _ticket = CartItemTypeStruct.maybeFromMap(snapshotData['ticket']);
+    _isVerified = snapshotData['is_verified'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -68,10 +75,12 @@ class VerifiedTicketsRecord extends FirestoreRecord {
 
 Map<String, dynamic> createVerifiedTicketsRecordData({
   CartItemTypeStruct? ticket,
+  bool? isVerified,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'ticket': CartItemTypeStruct().toMap(),
+      'is_verified': isVerified,
     }.withoutNulls,
   );
 
@@ -87,11 +96,12 @@ class VerifiedTicketsRecordDocumentEquality
 
   @override
   bool equals(VerifiedTicketsRecord? e1, VerifiedTicketsRecord? e2) {
-    return e1?.ticket == e2?.ticket;
+    return e1?.ticket == e2?.ticket && e1?.isVerified == e2?.isVerified;
   }
 
   @override
-  int hash(VerifiedTicketsRecord? e) => const ListEquality().hash([e?.ticket]);
+  int hash(VerifiedTicketsRecord? e) =>
+      const ListEquality().hash([e?.ticket, e?.isVerified]);
 
   @override
   bool isValidKey(Object? o) => o is VerifiedTicketsRecord;

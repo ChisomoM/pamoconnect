@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -51,6 +52,11 @@ class BookingRequestsRecord extends FirestoreRecord {
   bool get hasAccepted => _hasAccepted ?? false;
   bool hasHasAccepted() => _hasAccepted != null;
 
+  // "has_declined" field.
+  bool? _hasDeclined;
+  bool get hasDeclined => _hasDeclined ?? false;
+  bool hasHasDeclined() => _hasDeclined != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -61,6 +67,7 @@ class BookingRequestsRecord extends FirestoreRecord {
     _venueRef = snapshotData['venue_ref'] as DocumentReference?;
     _eventName = snapshotData['event_name'] as String?;
     _hasAccepted = snapshotData['has_accepted'] as bool?;
+    _hasDeclined = snapshotData['has_declined'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -110,6 +117,7 @@ Map<String, dynamic> createBookingRequestsRecordData({
   DocumentReference? venueRef,
   String? eventName,
   bool? hasAccepted,
+  bool? hasDeclined,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -120,6 +128,7 @@ Map<String, dynamic> createBookingRequestsRecordData({
       'venue_ref': venueRef,
       'event_name': eventName,
       'has_accepted': hasAccepted,
+      'has_declined': hasDeclined,
     }.withoutNulls,
   );
 
@@ -138,7 +147,8 @@ class BookingRequestsRecordDocumentEquality
         e1?.eventRef == e2?.eventRef &&
         e1?.venueRef == e2?.venueRef &&
         e1?.eventName == e2?.eventName &&
-        e1?.hasAccepted == e2?.hasAccepted;
+        e1?.hasAccepted == e2?.hasAccepted &&
+        e1?.hasDeclined == e2?.hasDeclined;
   }
 
   @override
@@ -149,7 +159,8 @@ class BookingRequestsRecordDocumentEquality
         e?.eventRef,
         e?.venueRef,
         e?.eventName,
-        e?.hasAccepted
+        e?.hasAccepted,
+        e?.hasDeclined
       ]);
 
   @override

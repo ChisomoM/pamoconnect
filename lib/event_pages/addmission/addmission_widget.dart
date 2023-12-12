@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/tickets/verify_ticket/verify_ticket_widget.dart';
+import '/tickets/verify_ticket2/verify_ticket2_widget.dart';
 import '/flutter_flow/permissions_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -102,7 +102,7 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
             onPressed: () async {
               logFirebaseEvent('ADDMISSION_arrow_back_rounded_ICN_ON_TAP');
               logFirebaseEvent('IconButton_navigate_back');
-              context.pop();
+              context.safePop();
             },
           ),
           actions: [],
@@ -210,18 +210,19 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                         .asValidator(context),
                   ),
                 ),
-                SelectionArea(
-                    child: Text(
-                  valueOrDefault<String>(
-                    _model.code,
-                    '-',
-                  ),
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Montserrat',
-                        fontSize: 32.0,
-                      ),
-                )),
+                if (_model.code != '-1')
+                  SelectionArea(
+                      child: Text(
+                    valueOrDefault<String>(
+                      _model.code,
+                      '-',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Montserrat',
+                          fontSize: 32.0,
+                        ),
+                  )),
                 Builder(
                   builder: (context) => Padding(
                     padding:
@@ -239,38 +240,19 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                         );
 
                         logFirebaseEvent('Button_firestore_query');
-                        _model.orderScan = await queryOrdersRecordOnce(
-                          queryBuilder: (ordersRecord) => ordersRecord
-                              .where(
-                                'ticket_id',
-                                isEqualTo: _model.ticketIDFieldController.text,
-                              )
-                              .where(
-                                'event_ref',
-                                isEqualTo: widget.event,
-                              ),
+                        _model.orderScan = await queryVerifiedTicketsRecordOnce(
+                          parent: widget.event,
+                          queryBuilder: (verifiedTicketsRecord) =>
+                              verifiedTicketsRecord.where(
+                            'ticket.ticket_id',
+                            isEqualTo: _model.code,
+                          ),
                           singleRecord: true,
                         ).then((s) => s.firstOrNull);
-                        if (_model.order?.isVerified == true) {
-                          if (_model.order?.hasCheckedIn == false) {
-                            logFirebaseEvent('Button_show_snack_bar');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Has Not Checked In',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                            );
+                        if (_model.orderScan?.isVerified == true) {
+                          if (_model.orderScan?.ticket?.hasCheckedIn == false) {
                             logFirebaseEvent('Button_alert_dialog');
                             await showAlignedDialog(
-                              barrierColor: Color(0x33000000),
                               context: context,
                               isGlobal: true,
                               avoidOverflow: false,
@@ -288,10 +270,9 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                                         ? FocusScope.of(context)
                                             .requestFocus(_model.unfocusNode)
                                         : FocusScope.of(context).unfocus(),
-                                    child: VerifyTicketWidget(
-                                      ticketID: _model.order?.ticketId,
-                                      verified: true,
-                                      orderRef: _model.orderScan!.reference,
+                                    child: VerifyTicket2Widget(
+                                      verifiedTickets:
+                                          _model.orderScan!.reference,
                                     ),
                                   )),
                                 );
@@ -302,15 +283,16 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'This person has already checked in',
-                                  style: TextStyle(
+                                  'This ticket has already been used',
+                                  style: GoogleFonts.getFont(
+                                    'Montserrat',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                   ),
                                 ),
                                 duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
+                                backgroundColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                               ),
                             );
                           }
@@ -319,7 +301,7 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'This Ticket has not been paid for',
+                                'This ticket does not exist',
                                 style: GoogleFonts.getFont(
                                   'Montserrat',
                                   color:
@@ -327,8 +309,8 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                                 ),
                               ),
                               duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
                           );
                         }
@@ -367,38 +349,22 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                         logFirebaseEvent(
                             'ADDMISSION_PAGE_VERIFY_CODE_BTN_ON_TAP');
                         logFirebaseEvent('Button_firestore_query');
-                        _model.order = await queryOrdersRecordOnce(
-                          queryBuilder: (ordersRecord) => ordersRecord
-                              .where(
-                                'ticket_id',
-                                isEqualTo: _model.ticketIDFieldController.text,
-                              )
-                              .where(
-                                'event_ref',
-                                isEqualTo: widget.event,
-                              ),
+                        _model.order = await queryVerifiedTicketsRecordOnce(
+                          parent: widget.event,
+                          queryBuilder: (verifiedTicketsRecord) =>
+                              verifiedTicketsRecord.where(
+                            'ticket.ticket_id',
+                            isEqualTo: _model.ticketIDFieldController.text,
+                          ),
                           singleRecord: true,
                         ).then((s) => s.firstOrNull);
                         if (_model.order?.isVerified == true) {
-                          if (_model.order?.hasCheckedIn == false) {
-                            logFirebaseEvent('Button_show_snack_bar');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Has Not Checked In',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                            );
+                          if (_model.order?.ticket?.hasCheckedIn == false) {
+                            logFirebaseEvent('Button_wait__delay');
+                            await Future.delayed(
+                                const Duration(milliseconds: 2000));
                             logFirebaseEvent('Button_alert_dialog');
                             await showAlignedDialog(
-                              barrierColor: Color(0x33000000),
                               context: context,
                               isGlobal: true,
                               avoidOverflow: false,
@@ -416,10 +382,8 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                                         ? FocusScope.of(context)
                                             .requestFocus(_model.unfocusNode)
                                         : FocusScope.of(context).unfocus(),
-                                    child: VerifyTicketWidget(
-                                      ticketID: _model.order?.ticketId,
-                                      verified: true,
-                                      orderRef: _model.order!.reference,
+                                    child: VerifyTicket2Widget(
+                                      verifiedTickets: _model.order!.reference,
                                     ),
                                   )),
                                 );
@@ -430,15 +394,16 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'This person has already checked in',
-                                  style: TextStyle(
+                                  'This ticket has already been used.',
+                                  style: GoogleFonts.getFont(
+                                    'Montserrat',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                   ),
                                 ),
                                 duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
+                                backgroundColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                               ),
                             );
                           }
@@ -447,7 +412,7 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'This Ticket has not been paid for',
+                                'This ticket does not exist',
                                 style: GoogleFonts.getFont(
                                   'Montserrat',
                                   color:
@@ -455,8 +420,8 @@ class _AddmissionWidgetState extends State<AddmissionWidget> {
                                 ),
                               ),
                               duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
                           );
                         }

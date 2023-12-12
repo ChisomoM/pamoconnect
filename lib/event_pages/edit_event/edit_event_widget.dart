@@ -299,7 +299,10 @@ class _EditEventWidgetState extends State<EditEventWidget>
                                     },
                                     child: Container(
                                       width: double.infinity,
-                                      height: 290.0,
+                                      height: 270.0,
+                                      constraints: BoxConstraints(
+                                        maxHeight: 270.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryBackground,

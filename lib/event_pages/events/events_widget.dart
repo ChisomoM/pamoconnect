@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/no_upcoming/no_upcoming_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -137,7 +138,7 @@ class _EventsWidgetState extends State<EventsWidget>
           child: Column(
             children: [
               Align(
-                alignment: Alignment(0.0, 0),
+                alignment: Alignment(-1.0, 0),
                 child: TabBar(
                   labelColor: FlutterFlowTheme.of(context).primary,
                   labelStyle: FlutterFlowTheme.of(context).bodyMedium,
@@ -161,50 +162,56 @@ class _EventsWidgetState extends State<EventsWidget>
                 child: TabBarView(
                   controller: _model.tabBarController,
                   children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 0.0),
-                      child: StreamBuilder<List<EventsRecord>>(
-                        stream: _model.myEvents(
-                          requestFn: () => queryEventsRecord(
-                            queryBuilder: (eventsRecord) => eventsRecord
-                                .where(
-                                  'event_Org',
-                                  isEqualTo: currentUserReference,
-                                )
-                                .where(
-                                  'is_draft',
-                                  isEqualTo: false,
-                                )
-                                .where(
-                                  'event_start',
-                                  isGreaterThan: getCurrentTimestamp,
-                                ),
+                    KeepAliveWidgetWrapper(
+                      builder: (context) => Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 8.0, 12.0, 0.0),
+                        child: StreamBuilder<List<EventsRecord>>(
+                          stream: _model.myEvents(
+                            requestFn: () => queryEventsRecord(
+                              queryBuilder: (eventsRecord) => eventsRecord
+                                  .where(
+                                    'event_Org',
+                                    isEqualTo: currentUserReference,
+                                  )
+                                  .where(
+                                    'is_draft',
+                                    isEqualTo: false,
+                                  )
+                                  .where(
+                                    'event_start',
+                                    isGreaterThan: getCurrentTimestamp,
+                                  ),
+                            ),
                           ),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 30.0,
-                                height: 30.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: SpinKitFadingFour(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 30.0,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          List<EventsRecord> columnEventsRecordList =
-                              snapshot.data!;
-                          return SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  columnEventsRecordList.length, (columnIndex) {
-                                final columnEventsRecord =
-                                    columnEventsRecordList[columnIndex];
+                              );
+                            }
+                            List<EventsRecord> listViewEventsRecordList =
+                                snapshot.data!;
+                            if (listViewEventsRecordList.isEmpty) {
+                              return Center(
+                                child: NoUpcomingWidget(),
+                              );
+                            }
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listViewEventsRecordList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewEventsRecord =
+                                    listViewEventsRecordList[listViewIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 12.0),
@@ -222,7 +229,7 @@ class _EventsWidgetState extends State<EventsWidget>
                                         'eventDetails',
                                         queryParameters: {
                                           'eventDetails': serializeParam(
-                                            columnEventsRecord.reference,
+                                            listViewEventsRecord.reference,
                                             ParamType.DocumentReference,
                                           ),
                                         }.withoutNulls,
@@ -259,7 +266,7 @@ class _EventsWidgetState extends State<EventsWidget>
                                                     BorderRadius.circular(12.0),
                                                 child: Image.network(
                                                   valueOrDefault<String>(
-                                                    columnEventsRecord
+                                                    listViewEventsRecord
                                                         .eventPoster,
                                                     'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png',
                                                   ),
@@ -283,7 +290,7 @@ class _EventsWidgetState extends State<EventsWidget>
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      columnEventsRecord
+                                                      listViewEventsRecord
                                                           .eventName,
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -300,7 +307,7 @@ class _EventsWidgetState extends State<EventsWidget>
                                                                     8.0,
                                                                     0.0),
                                                         child: AutoSizeText(
-                                                          columnEventsRecord
+                                                          listViewEventsRecord
                                                               .category
                                                               .maybeHandleOverflow(
                                                             maxChars: 70,
@@ -343,58 +350,62 @@ class _EventsWidgetState extends State<EventsWidget>
                                     ),
                                   ),
                                 );
-                              }),
-                            ),
-                          );
-                        },
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Column(
+                    KeepAliveWidgetWrapper(
+                      builder: (context) => Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 8.0, 12.0, 0.0),
-                            child: StreamBuilder<List<EventsRecord>>(
-                              stream: _model.drafts(
-                                uniqueQueryKey: widget.draftsQuery,
-                                requestFn: () => queryEventsRecord(
-                                  queryBuilder: (eventsRecord) => eventsRecord
-                                      .where(
-                                        'event_Org',
-                                        isEqualTo: currentUserReference,
-                                      )
-                                      .where(
-                                        'is_draft',
-                                        isEqualTo: true,
-                                      ),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 8.0, 12.0, 0.0),
+                              child: StreamBuilder<List<EventsRecord>>(
+                                stream: _model.drafts(
+                                  uniqueQueryKey: widget.draftsQuery,
+                                  requestFn: () => queryEventsRecord(
+                                    queryBuilder: (eventsRecord) => eventsRecord
+                                        .where(
+                                          'event_Org',
+                                          isEqualTo: currentUserReference,
+                                        )
+                                        .where(
+                                          'is_draft',
+                                          isEqualTo: true,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 30.0,
-                                      height: 30.0,
-                                      child: SpinKitFadingFour(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 30.0,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 30.0,
+                                        height: 30.0,
+                                        child: SpinKitFadingFour(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 30.0,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                List<EventsRecord>
-                                    eventsColumnEventsRecordList =
-                                    snapshot.data!;
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(
+                                    );
+                                  }
+                                  List<EventsRecord>
+                                      eventsColumnEventsRecordList =
+                                      snapshot.data!;
+                                  if (eventsColumnEventsRecordList.isEmpty) {
+                                    return NoUpcomingWidget();
+                                  }
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:
                                         eventsColumnEventsRecordList.length,
-                                        (eventsColumnIndex) {
+                                    itemBuilder: (context, eventsColumnIndex) {
                                       final eventsColumnEventsRecord =
                                           eventsColumnEventsRecordList[
                                               eventsColumnIndex];
@@ -559,199 +570,214 @@ class _EventsWidgetState extends State<EventsWidget>
                                           ),
                                         ),
                                       );
-                                    }),
-                                  ),
-                                );
-                              },
+                                    },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 0.0),
-                      child: StreamBuilder<List<EventsRecord>>(
-                        stream: _model.pastEvents(
-                          requestFn: () => queryEventsRecord(
-                            queryBuilder: (eventsRecord) => eventsRecord
-                                .where(
-                                  'event_Org',
-                                  isEqualTo: currentUserReference,
-                                )
-                                .where(
-                                  'event_end',
-                                  isLessThan: getCurrentTimestamp,
-                                ),
+                    KeepAliveWidgetWrapper(
+                      builder: (context) => Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 8.0, 12.0, 0.0),
+                        child: StreamBuilder<List<EventsRecord>>(
+                          stream: _model.pastEvents(
+                            requestFn: () => queryEventsRecord(
+                              queryBuilder: (eventsRecord) => eventsRecord
+                                  .where(
+                                    'event_Org',
+                                    isEqualTo: currentUserReference,
+                                  )
+                                  .where(
+                                    'event_end',
+                                    isLessThan: getCurrentTimestamp,
+                                  ),
+                            ),
                           ),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 30.0,
-                                height: 30.0,
-                                child: SpinKitFadingFour(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  child: SpinKitFadingFour(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 30.0,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          List<EventsRecord> eventsColumnEventsRecordList =
-                              snapshot.data!;
-                          return SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: List.generate(
-                                  eventsColumnEventsRecordList.length,
-                                  (eventsColumnIndex) {
-                                final eventsColumnEventsRecord =
-                                    eventsColumnEventsRecordList[
-                                        eventsColumnIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 12.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'EVENTS_PAGE_menuItem_ON_TAP');
-                                      logFirebaseEvent('menuItem_navigate_to');
+                              );
+                            }
+                            List<EventsRecord> eventsColumnEventsRecordList =
+                                snapshot.data!;
+                            if (eventsColumnEventsRecordList.isEmpty) {
+                              return NoUpcomingWidget();
+                            }
+                            return SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: List.generate(
+                                    eventsColumnEventsRecordList.length,
+                                    (eventsColumnIndex) {
+                                  final eventsColumnEventsRecord =
+                                      eventsColumnEventsRecordList[
+                                          eventsColumnIndex];
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 12.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'EVENTS_PAGE_menuItem_ON_TAP');
+                                        logFirebaseEvent(
+                                            'menuItem_navigate_to');
 
-                                      context.pushNamed(
-                                        'eventDetails',
-                                        queryParameters: {
-                                          'eventDetails': serializeParam(
-                                            eventsColumnEventsRecord.reference,
-                                            ParamType.DocumentReference,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          1.0,
-                                      height: 100.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 3.0,
-                                            color: Color(0x411D2429),
-                                            offset: Offset(0.0, 1.0),
-                                          )
-                                        ],
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 8.0, 8.0, 8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 1.0, 1.0, 1.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                                child: Image.network(
-                                                  valueOrDefault<String>(
-                                                    eventsColumnEventsRecord
-                                                        .eventPoster,
-                                                    'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png',
-                                                  ),
-                                                  width: 80.0,
-                                                  height: 75.0,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                        context.pushNamed(
+                                          'eventDetails',
+                                          queryParameters: {
+                                            'eventDetails': serializeParam(
+                                              eventsColumnEventsRecord
+                                                  .reference,
+                                              ParamType.DocumentReference,
                                             ),
-                                            Expanded(
-                                              child: Padding(
+                                          }.withoutNulls,
+                                        );
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                1.0,
+                                        height: 100.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 3.0,
+                                              color: Color(0x411D2429),
+                                              offset: Offset(0.0, 1.0),
+                                            )
+                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 8.0, 8.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        8.0, 8.0, 4.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
+                                                        0.0, 1.0, 1.0, 1.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.0),
+                                                  child: Image.network(
+                                                    valueOrDefault<String>(
                                                       eventsColumnEventsRecord
-                                                          .eventName,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium,
+                                                          .eventPoster,
+                                                      'https://www.nbmchealth.com/wp-content/uploads/2018/04/default-placeholder.png',
                                                     ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    8.0,
-                                                                    0.0),
-                                                        child: AutoSizeText(
-                                                          eventsColumnEventsRecord
-                                                              .category
-                                                              .maybeHandleOverflow(
-                                                            maxChars: 70,
-                                                            replacement: '…',
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 4.0, 0.0, 0.0),
-                                                  child: Icon(
-                                                    Icons.chevron_right_rounded,
-                                                    color: Color(0xFF57636C),
-                                                    size: 24.0,
+                                                    width: 80.0,
+                                                    height: 75.0,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ],
+                                              ),
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 8.0, 4.0, 0.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        eventsColumnEventsRecord
+                                                            .eventName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium,
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      4.0,
+                                                                      8.0,
+                                                                      0.0),
+                                                          child: AutoSizeText(
+                                                            eventsColumnEventsRecord
+                                                                .category
+                                                                .maybeHandleOverflow(
+                                                              maxChars: 70,
+                                                              replacement: '…',
+                                                            ),
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodySmall,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                0.0, 0.0),
+                                                    child: Icon(
+                                                      Icons
+                                                          .chevron_right_rounded,
+                                                      color: Color(0xFF57636C),
+                                                      size: 24.0,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }),
-                            ),
-                          );
-                        },
+                                  );
+                                }),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

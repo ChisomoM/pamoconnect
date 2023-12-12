@@ -128,7 +128,7 @@ class _VenueAccountTypeWidgetState extends State<VenueAccountTypeWidget>
                 logFirebaseEvent('Button_backend_call');
 
                 await currentUserReference!.update(createUsersRecordData(
-                  accountType: 'Venue',
+                  accountType: FFAppConstants.Venue,
                 ));
                 logFirebaseEvent('Button_navigate_to');
 

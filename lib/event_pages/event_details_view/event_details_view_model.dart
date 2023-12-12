@@ -1,5 +1,5 @@
 import '/backend/backend.dart';
-import '/components/no_performers_widget.dart';
+import '/components/no_performers/no_performers_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';

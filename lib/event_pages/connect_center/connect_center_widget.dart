@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/no_performers_widget.dart';
+import '/components/no_performers/no_performers_widget.dart';
 import '/components/performer_container/performer_container_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -235,7 +235,6 @@ class _ConnectCenterWidgetState extends State<ConnectCenterWidget> {
                                                   }
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.horizontal,
                                                     itemCount: reqPerfor.length,
@@ -481,7 +480,6 @@ class _ConnectCenterWidgetState extends State<ConnectCenterWidget> {
                                                   }
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.horizontal,
                                                     itemCount:
@@ -853,18 +851,6 @@ class _ConnectCenterWidgetState extends State<ConnectCenterWidget> {
                                         logFirebaseEvent(
                                             'CONNECT_CENTER_PAGE_DONE_BTN_ON_TAP');
                                         if (connectCenterEventsRecord
-                                                .hasTicket ==
-                                            null) {
-                                          logFirebaseEvent(
-                                              'Button_backend_call');
-
-                                          await connectCenterEventsRecord
-                                              .reference
-                                              .update(createEventsRecordData(
-                                            hasTicket: false,
-                                          ));
-                                        }
-                                        if (connectCenterEventsRecord
                                                 .verifiedVenue ==
                                             false) {
                                           logFirebaseEvent(
@@ -879,11 +865,11 @@ class _ConnectCenterWidgetState extends State<ConnectCenterWidget> {
                                         logFirebaseEvent('Button_navigate_to');
 
                                         context.goNamed(
-                                          'events',
+                                          'eventDetails',
                                           queryParameters: {
-                                            'draftsQuery': serializeParam(
-                                              'myEv',
-                                              ParamType.String,
+                                            'eventDetails': serializeParam(
+                                              widget.eve,
+                                              ParamType.DocumentReference,
                                             ),
                                           }.withoutNulls,
                                         );

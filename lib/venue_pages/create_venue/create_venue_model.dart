@@ -19,6 +19,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class CreateVenueModel extends FlutterFlowModel<CreateVenueWidget> {
   ///  State fields for stateful widgets in this page.
@@ -35,23 +36,29 @@ class CreateVenueModel extends FlutterFlowModel<CreateVenueWidget> {
   String? Function(BuildContext, String?)? venueNameControllerValidator;
   String? _venueNameControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Field is required';
+      return 'Please enter a venue name';
     }
 
-    if (val.length < 4) {
-      return 'Requires at least 4 characters.';
-    }
-    if (val.length > 20) {
-      return 'Maximum 20 characters allowed, currently ${val.length}.';
+    if (val.length < 3) {
+      return '30';
     }
 
     return null;
   }
 
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for venueDescription widget.
+  FocusNode? venueDescriptionFocusNode;
+  TextEditingController? venueDescriptionController;
+  String? Function(BuildContext, String?)? venueDescriptionControllerValidator;
+  String? _venueDescriptionControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Give your venue a description';
+    }
+
+    return null;
+  }
+
   // State field(s) for PlacePicker widget.
   var placePickerValue = FFPlace();
   // State field(s) for VenueType widget.
@@ -67,14 +74,15 @@ class CreateVenueModel extends FlutterFlowModel<CreateVenueWidget> {
 
   void initState(BuildContext context) {
     venueNameControllerValidator = _venueNameControllerValidator;
+    venueDescriptionControllerValidator = _venueDescriptionControllerValidator;
   }
 
   void dispose() {
     venueNameFocusNode?.dispose();
     venueNameController?.dispose();
 
-    textFieldFocusNode?.dispose();
-    textController2?.dispose();
+    venueDescriptionFocusNode?.dispose();
+    venueDescriptionController?.dispose();
   }
 
   /// Action blocks are added here.

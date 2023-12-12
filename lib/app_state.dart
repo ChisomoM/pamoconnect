@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -41,6 +43,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _hasLoggedInBefore =
           prefs.getBool('ff_hasLoggedInBefore') ?? _hasLoggedInBefore;
+    });
+    _safeInit(() {
+      _ages = prefs.getStringList('ff_ages') ?? _ages;
     });
   }
 
@@ -336,6 +341,41 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_hasLoggedInBefore', _value);
   }
 
+  List<String> _ages = ['18 to 19', '20 to 24'];
+  List<String> get ages => _ages;
+  set ages(List<String> _value) {
+    _ages = _value;
+    prefs.setStringList('ff_ages', _value);
+  }
+
+  void addToAges(String _value) {
+    _ages.add(_value);
+    prefs.setStringList('ff_ages', _ages);
+  }
+
+  void removeFromAges(String _value) {
+    _ages.remove(_value);
+    prefs.setStringList('ff_ages', _ages);
+  }
+
+  void removeAtIndexFromAges(int _index) {
+    _ages.removeAt(_index);
+    prefs.setStringList('ff_ages', _ages);
+  }
+
+  void updateAgesAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _ages[_index] = updateFn(_ages[_index]);
+    prefs.setStringList('ff_ages', _ages);
+  }
+
+  void insertAtIndexInAges(int _index, String _value) {
+    _ages.insert(_index, _value);
+    prefs.setStringList('ff_ages', _ages);
+  }
+
   final _eventTicketsManager = StreamRequestManager<List<TicketsRecord>>();
   Stream<List<TicketsRecord>> eventTickets({
     String? uniqueQueryKey,
@@ -365,6 +405,21 @@ class FFAppState extends ChangeNotifier {
   void clearMyVenueCache() => _myVenueManager.clear();
   void clearMyVenueCacheKey(String? uniqueKey) =>
       _myVenueManager.clearRequest(uniqueKey);
+
+  final _eventDetsManager = StreamRequestManager<EventsRecord>();
+  Stream<EventsRecord> eventDets({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<EventsRecord> Function() requestFn,
+  }) =>
+      _eventDetsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearEventDetsCache() => _eventDetsManager.clear();
+  void clearEventDetsCacheKey(String? uniqueKey) =>
+      _eventDetsManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

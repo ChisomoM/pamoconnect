@@ -60,7 +60,7 @@ class _NoUpcomingWidgetState extends State<NoUpcomingWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'You have no upcoming events',
+                'You have no events here',
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
                       fontFamily: 'Montserrat',
@@ -78,7 +78,7 @@ class _NoUpcomingWidgetState extends State<NoUpcomingWidget> {
             children: [
               Expanded(
                 child: Text(
-                  'Seems like you have no upcoming events. Simply click the button below to create an event.',
+                  'Seems like you have no events here. Simply click the button below to create an event.',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodySmall,
                 ),

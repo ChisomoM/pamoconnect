@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/under_cons_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -22,19 +21,13 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
-  // Model for underCons component.
-  late UnderConsModel underConsModel;
-
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    underConsModel = createModel(context, () => UnderConsModel());
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
-    underConsModel.dispose();
   }
 
   /// Action blocks are added here.

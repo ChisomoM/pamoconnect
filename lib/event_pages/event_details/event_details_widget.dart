@@ -93,7 +93,13 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
     context.watch<FFAppState>();
 
     return StreamBuilder<EventsRecord>(
-      stream: EventsRecord.getDocument(widget.eventDetails!),
+      stream: FFAppState().eventDets(
+        uniqueQueryKey: valueOrDefault<String>(
+          widget.eventDetails?.id,
+          'Event',
+        ),
+        requestFn: () => EventsRecord.getDocument(widget.eventDetails!),
+      ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -807,6 +813,9 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
                                                     .width *
                                                 0.45,
                                             height: 190.0,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 250.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -906,6 +915,9 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
                                                     .width *
                                                 0.45,
                                             height: 190.0,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 250.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1009,6 +1021,9 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
                                                     .width *
                                                 0.45,
                                             height: 190.0,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 250.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1100,6 +1115,9 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
                                                     .width *
                                                 0.45,
                                             height: 190.0,
+                                            constraints: BoxConstraints(
+                                              maxWidth: 250.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1182,7 +1200,15 @@ class _EventDetailsWidgetState extends State<EventDetailsWidget>
                                         logFirebaseEvent(
                                             'Container_navigate_to');
 
-                                        context.pushNamed('assistanttt');
+                                        context.pushNamed(
+                                          'assistanttt',
+                                          queryParameters: {
+                                            'eventRef': serializeParam(
+                                              widget.eventDetails,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       },
                                       child: Container(
                                         width: double.infinity,

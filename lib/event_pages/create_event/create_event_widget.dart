@@ -3,11 +3,14 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:io';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -362,10 +365,60 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 12.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [],
+                                  0.0, 8.0, 0.0, 0.0),
+                              child: FlutterFlowPlacePicker(
+                                iOSGoogleMapsApiKey:
+                                    'AIzaSyDtJikhB9EPRE-CATSeyBdzWiNoPwJoc4w',
+                                androidGoogleMapsApiKey:
+                                    'AIzaSyA-4v7AraidTJe6mmHzSuateo7nU8AaARU',
+                                webGoogleMapsApiKey:
+                                    'AIzaSyD0Yc_u_VqFa2B3W1qc7UfPSV9-65pVPq4',
+                                onSelect: (place) async {
+                                  setState(
+                                      () => _model.placePickerValue = place);
+                                },
+                                defaultText: 'Select Location',
+                                icon: Icon(
+                                  Icons.place,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBtnText,
+                                  size: 16.0,
+                                ),
+                                buttonOptions: FFButtonOptions(
+                                  width: 200.0,
+                                  height: 40.0,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Montserrat',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        fontSize: 14.0,
+                                      ),
+                                  elevation: 2.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 0.0),
+                              child: Text(
+                                'NOTE: You will still have to select a venue in the connect center. This is a fallback location.',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Montserrat',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
                             ),
                             Padding(
@@ -680,7 +733,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                           await showDatePicker(
                                         context: context,
                                         initialDate: getCurrentTimestamp,
-                                        firstDate: getCurrentTimestamp,
+                                        firstDate: (_model.datePicked1 ??
+                                            DateTime(1900)),
                                         lastDate: DateTime(2050),
                                       );
 
@@ -811,6 +865,27 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             _model.uploadedFileUrl.isEmpty) {
                           return;
                         }
+                        if (_model.placePickerValue == FFPlace()) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return WebViewAware(
+                                  child: AlertDialog(
+                                title: Text('Select Fallback location'),
+                                content: Text(
+                                    'Select for the fallback location incase you do not find the venue you are looking for'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ));
+                            },
+                          );
+                          return;
+                        }
                         if (_model.categoryDropdownValue == null) {
                           await showDialog(
                             context: context,
@@ -921,6 +996,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                           verifiedVenue: false,
                           eventID: _model.eventID,
                           createdDate: getCurrentTimestamp,
+                          isPrivate: false,
                         ));
                         _model.eventRef = EventsRecord.getDocumentFromData(
                             createEventsRecordData(
@@ -936,22 +1012,23 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                               verifiedVenue: false,
                               eventID: _model.eventID,
                               createdDate: getCurrentTimestamp,
+                              isPrivate: false,
                             ),
                             eventsRecordReference);
                         logFirebaseEvent('Button_show_snack_bar');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'Your Event has been saved as a draft. To publish it, go to drafts and set it as published.',
+                              'Draft saved',
                               style: GoogleFonts.getFont(
                                 'Montserrat',
                                 color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                    .secondaryBackground,
                               ),
                             ),
-                            duration: Duration(milliseconds: 8000),
+                            duration: Duration(milliseconds: 4000),
                             backgroundColor:
-                                FlutterFlowTheme.of(context).background,
+                                FlutterFlowTheme.of(context).primaryText,
                           ),
                         );
                         logFirebaseEvent('Button_navigate_to');

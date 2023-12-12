@@ -10,7 +10,8 @@ Future initFirebase() async {
             projectId: "festiv8-7f79d",
             storageBucket: "festiv8-7f79d.appspot.com",
             messagingSenderId: "1069732906571",
-            appId: "1:1069732906571:web:aa7be9b724e5917b4b2fce"));
+            appId: "1:1069732906571:web:58a958630a4913724b2fce",
+            measurementId: "G-RC0DX3CWSV"));
   } else {
     await Firebase.initializeApp();
   }

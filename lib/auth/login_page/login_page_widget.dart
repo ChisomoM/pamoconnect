@@ -129,13 +129,27 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                             height: 140.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                                  .primaryBackground,
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(16.0),
                                 bottomRight: Radius.circular(16.0),
                                 topLeft: Radius.circular(0.0),
                                 topRight: Radius.circular(0.0),
                               ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/images/Pamo_Connect_small_transparent.png',
+                                    width: 200.0,
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment(0.00, 1.00),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         if (responsiveVisibility(
@@ -160,7 +174,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.asset(
-                                'assets/images/Evantsy_Transparent_SmallLogo.png',
+                                'assets/images/Pamo_Connect_small_transparent.png',
                                 width: 171.0,
                                 height: 152.0,
                                 fit: BoxFit.fitWidth,
@@ -401,6 +415,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                         onPressed: () async {
                                           logFirebaseEvent(
                                               'LOGIN_PAGE_PAGE_SIGN_IN_BTN_ON_TAP');
+                                          await authManager.refreshUser();
                                           logFirebaseEvent(
                                               'Button_validate_form');
                                           if (_model.formKey.currentState ==
@@ -435,7 +450,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                   title: Text(
                                                       'Email not verified'),
                                                   content: Text(
-                                                      'You couldn\'t get in because your email hasn\'t been verified. We will resend the verification link to your email.'),
+                                                      'Please verify your account. We will send you an email with a verification link.'),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () =>
@@ -494,7 +509,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                               SnackBar(
                                                 content: Text(
                                                   'Welcome back ${currentUserDisplayName}',
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.getFont(
+                                                    'Montserrat',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -507,8 +523,34 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                                         .secondaryBackground,
                                               ),
                                             );
-                                            if (currentUserDocument?.birthday ==
-                                                null) {
+                                            if ((currentUserDocument?.birthday == null) ||
+                                                (currentUserDisplayName ==
+                                                        null ||
+                                                    currentUserDisplayName ==
+                                                        '') ||
+                                                (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.name,
+                                                            '') ==
+                                                        null ||
+                                                    valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.name,
+                                                            '') ==
+                                                        '') ||
+                                                (currentUserDocument
+                                                        ?.birthday ==
+                                                    null) ||
+                                                (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.gender,
+                                                            '') ==
+                                                        null ||
+                                                    valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.gender,
+                                                            '') ==
+                                                        '')) {
                                               logFirebaseEvent(
                                                   'Button_navigate_to');
 
@@ -846,6 +888,26 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                           end: AlignmentDirectional(-1.0, 1.0),
                         ),
                         borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Align(
+                        alignment: AlignmentDirectional(0.00, 0.00),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/Pamo_Connect_small_transparent_copy.png',
+                                  width: 300.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

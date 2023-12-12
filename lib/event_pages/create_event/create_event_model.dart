@@ -3,11 +3,14 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:io';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'create_event_widget.dart' show CreateEventWidget;
@@ -59,6 +62,8 @@ class CreateEventModel extends FlutterFlowModel<CreateEventWidget> {
     return null;
   }
 
+  // State field(s) for PlacePicker widget.
+  var placePickerValue = FFPlace();
   // State field(s) for CategoryDropdown widget.
   String? categoryDropdownValue;
   FormFieldController<String>? categoryDropdownValueController;

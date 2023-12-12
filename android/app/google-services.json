@@ -7,100 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1069732906571:android:8d289ef98bcbb5a94b2fce",
-        "android_client_info": {
-          "package_name": "com.chizotech.evantsy"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1069732906571-orgarpkj4fd8d48727gsfbrvi138srk7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.chizotech.evantsy",
-            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
-          }
-        },
-        {
-          "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA-4v7AraidTJe6mmHzSuateo7nU8AaARU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1069732906571-065ibikcbnl5gdv1iqhef0b6gvdsa60e.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chizotech.evantsybusiness"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1069732906571:android:ae6416b573f1ff734b2fce",
-        "android_client_info": {
-          "package_name": "com.chizotech.evantsybusiness"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1069732906571-ak16enipos0an9dgn6dd8kjbabe09894.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.chizotech.evantsybusiness",
-            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
-          }
-        },
-        {
-          "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA-4v7AraidTJe6mmHzSuateo7nU8AaARU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1069732906571-065ibikcbnl5gdv1iqhef0b6gvdsa60e.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.chizotech.evantsybusiness"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:1069732906571:android:1281064ad9e6cea84b2fce",
         "android_client_info": {
           "package_name": "com.chizotech.pamo"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1069732906571-2pcghtndr59ni1rkimkq6bjtjrlgfmha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamo",
+            "certificate_hash": "37d981d1ecf5480c576a0aa6090809e237e71177"
+          }
+        },
         {
           "client_id": "1069732906571-37cekl1af12bqb04kdmg2ikgml4ui9u0.apps.googleusercontent.com",
           "client_type": 1,
@@ -110,7 +30,67 @@
           }
         },
         {
-          "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
+          "client_id": "1069732906571-n6t11quk2emc5qfcco2dt52825umtho6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamo",
+            "certificate_hash": "ad9f0fed9544a8a3fea316bc697971f1aeba40cc"
+          }
+        },
+        {
+          "client_id": "1069732906571-ok96btdpk84udn97g49rmcs20be7nqlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamo",
+            "certificate_hash": "1f90953a343fc71dfc3bbdfe70b4909a222d6c30"
+          }
+        },
+        {
+          "client_id": "1069732906571-ocfe0ur8jm36ou6e25q5cdkmj5hooq2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-4v7AraidTJe6mmHzSuateo7nU8AaARU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1069732906571-065ibikcbnl5gdv1iqhef0b6gvdsa60e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chizotech.evantsybusiness"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069732906571:android:393f15276f9522dd4b2fce",
+        "android_client_info": {
+          "package_name": "com.chizotech.pamoadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1069732906571-ea8u44k4ka67s9voralefrkkath7n3q9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamoadmin",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "1069732906571-ocfe0ur8jm36ou6e25q5cdkmj5hooq2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -146,6 +126,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1069732906571-7s160ntfurqj72vao10e6j4hhdguuas8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamoconnect",
+            "certificate_hash": "37d981d1ecf5480c576a0aa6090809e237e71177"
+          }
+        },
+        {
           "client_id": "1069732906571-c7nge2plkvuldd7r8gad6e3oh11udfl7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -154,7 +142,23 @@
           }
         },
         {
-          "client_id": "1069732906571-lcq319n1ibgdnebf1krgddtlqudc4b16.apps.googleusercontent.com",
+          "client_id": "1069732906571-fg58g9f64bt70itkaatlul7fg33gf3vm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamoconnect",
+            "certificate_hash": "1f90953a343fc71dfc3bbdfe70b4909a222d6c30"
+          }
+        },
+        {
+          "client_id": "1069732906571-s8s1i4s7q8j7t2vcdudd67oil874mkm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chizotech.pamoconnect",
+            "certificate_hash": "ad9f0fed9544a8a3fea316bc697971f1aeba40cc"
+          }
+        },
+        {
+          "client_id": "1069732906571-ocfe0ur8jm36ou6e25q5cdkmj5hooq2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

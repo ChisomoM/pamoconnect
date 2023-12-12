@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -41,6 +42,21 @@ class PromoCodesRecord extends FirestoreRecord {
   double get discountAmount => _discountAmount ?? 0.0;
   bool hasDiscountAmount() => _discountAmount != null;
 
+  // "times_used" field.
+  int? _timesUsed;
+  int get timesUsed => _timesUsed ?? 0;
+  bool hasTimesUsed() => _timesUsed != null;
+
+  // "usage_limit" field.
+  int? _usageLimit;
+  int get usageLimit => _usageLimit ?? 0;
+  bool hasUsageLimit() => _usageLimit != null;
+
+  // "is_active" field.
+  bool? _isActive;
+  bool get isActive => _isActive ?? false;
+  bool hasIsActive() => _isActive != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -49,6 +65,9 @@ class PromoCodesRecord extends FirestoreRecord {
     _expiryDate = snapshotData['expiry_date'] as DateTime?;
     _promoCode = snapshotData['promo_code'] as String?;
     _discountAmount = castToType<double>(snapshotData['discount_amount']);
+    _timesUsed = castToType<int>(snapshotData['times_used']);
+    _usageLimit = castToType<int>(snapshotData['usage_limit']);
+    _isActive = snapshotData['is_active'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -96,6 +115,9 @@ Map<String, dynamic> createPromoCodesRecordData({
   DateTime? expiryDate,
   String? promoCode,
   double? discountAmount,
+  int? timesUsed,
+  int? usageLimit,
+  bool? isActive,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -104,6 +126,9 @@ Map<String, dynamic> createPromoCodesRecordData({
       'expiry_date': expiryDate,
       'promo_code': promoCode,
       'discount_amount': discountAmount,
+      'times_used': timesUsed,
+      'usage_limit': usageLimit,
+      'is_active': isActive,
     }.withoutNulls,
   );
 
@@ -119,7 +144,10 @@ class PromoCodesRecordDocumentEquality implements Equality<PromoCodesRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.expiryDate == e2?.expiryDate &&
         e1?.promoCode == e2?.promoCode &&
-        e1?.discountAmount == e2?.discountAmount;
+        e1?.discountAmount == e2?.discountAmount &&
+        e1?.timesUsed == e2?.timesUsed &&
+        e1?.usageLimit == e2?.usageLimit &&
+        e1?.isActive == e2?.isActive;
   }
 
   @override
@@ -128,7 +156,10 @@ class PromoCodesRecordDocumentEquality implements Equality<PromoCodesRecord> {
         e?.createdTime,
         e?.expiryDate,
         e?.promoCode,
-        e?.discountAmount
+        e?.discountAmount,
+        e?.timesUsed,
+        e?.usageLimit,
+        e?.isActive
       ]);
 
   @override

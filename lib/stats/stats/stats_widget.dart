@@ -1,5 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,8 +40,12 @@ class _StatsWidgetState extends State<StatsWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('STATS_PAGE_stats_ON_INIT_STATE');
+      logFirebaseEvent('stats_backend_call');
+      _model.eventR = await EventsRecord.getDocumentOnce(widget.eventRef!);
       logFirebaseEvent('stats_update_page_state');
-      setState(() {});
+      setState(() {
+        _model.addToALessthan20(_model.eventR!.ageRanges.lessThan20);
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -146,7 +150,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 1.0,
@@ -162,19 +166,19 @@ class _StatsWidgetState extends State<StatsWidget> {
                           ),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 12.0, 12.0, 16.0),
+                                16.0, 16.0, 16.0, 20.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Tickets Bought',
+                                  'Tickets Sold',
                                   style:
                                       FlutterFlowTheme.of(context).labelMedium,
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 4.0, 8.0, 0.0),
+                                      0.0, 4.0, 8.0, 8.0),
                                   child: Text(
                                     formatNumber(
                                       statsEventsRecord.soldTickets,
@@ -184,6 +188,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                                         .displayMedium
                                         .override(
                                           fontFamily: 'Montserrat',
+                                          fontSize: 24.0,
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
@@ -196,7 +201,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 1.0,
@@ -212,82 +217,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                           ),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 12.0, 12.0, 16.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Ages',
-                                  style:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                ),
-                                Container(
-                                  width: 370.0,
-                                  height: 230.0,
-                                  child: FlutterFlowBarChart(
-                                    barData: [
-                                      FFBarChartData(
-                                        yData: statsEventsRecord.buyerAges,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                      )
-                                    ],
-                                    xLabels: statsEventsRecord.buyerAges
-                                        .map((e) => e.toString())
-                                        .toList(),
-                                    barWidth: 16.0,
-                                    barBorderRadius: BorderRadius.circular(0.0),
-                                    groupSpace: 20.0,
-                                    alignment: BarChartAlignment.spaceAround,
-                                    chartStylingInfo: ChartStylingInfo(
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      showBorder: false,
-                                    ),
-                                    axisBounds: AxisBounds(),
-                                    xAxisLabelInfo: AxisLabelInfo(
-                                      title: 'Ages',
-                                      titleTextStyle: TextStyle(
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                    yAxisLabelInfo: AxisLabelInfo(
-                                      title: 'Number',
-                                      titleTextStyle: GoogleFonts.getFont(
-                                        'Montserrat',
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 1.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          height: 120.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 12.0, 12.0, 16.0),
+                                16.0, 16.0, 16.0, 20.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,7 +235,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                                       statsEventsRecord.revenue,
                                       formatType: FormatType.decimal,
                                       decimalType: DecimalType.automatic,
-                                      currency: '',
+                                      currency: 'K',
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .displaySmall
@@ -322,7 +252,7 @@ class _StatsWidgetState extends State<StatsWidget> {
                         ),
                       ),
                     ),
-                  ],
+                  ].divide(SizedBox(height: 16.0)),
                 ),
               ),
             ),

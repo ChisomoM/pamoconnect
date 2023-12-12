@@ -196,311 +196,97 @@ class _ExtraDetailsWidgetState extends State<ExtraDetailsWidget> {
             ),
             body: SafeArea(
               top: true,
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Form(
-                      key: _model.formKey,
-                      autovalidateMode: AutovalidateMode.disabled,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 8.0),
-                            child: Autocomplete<String>(
-                              initialValue: TextEditingValue(
-                                  text: valueOrDefault<String>(
-                                extraDetailsEventsRecord.ageLimit.toString(),
-                                '13',
-                              )),
-                              optionsBuilder: (textEditingValue) {
-                                if (textEditingValue.text == '') {
-                                  return const Iterable<String>.empty();
-                                }
-                                return ['0', '13', '16', '18', '21']
-                                    .where((option) {
-                                  final lowercaseOption = option.toLowerCase();
-                                  return lowercaseOption.contains(
-                                      textEditingValue.text.toLowerCase());
-                                });
-                              },
-                              optionsViewBuilder:
-                                  (context, onSelected, options) {
-                                return AutocompleteOptionsList(
-                                  textFieldKey: _model.ageLimitKey,
-                                  textController: _model.ageLimitController!,
-                                  options: options.toList(),
-                                  onSelected: onSelected,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  textHighlightStyle: TextStyle(),
-                                  elevation: 4.0,
-                                  optionBackgroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  optionHighlightColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  maxHeight: 300.0,
-                                );
-                              },
-                              onSelected: (String selection) {
-                                setState(() =>
-                                    _model.ageLimitSelectedOption = selection);
-                                FocusScope.of(context).unfocus();
-                              },
-                              fieldViewBuilder: (
-                                context,
-                                textEditingController,
-                                focusNode,
-                                onEditingComplete,
-                              ) {
-                                _model.ageLimitFocusNode = focusNode;
+              child: Align(
+                alignment: AlignmentDirectional(0.00, -1.00),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: 980.0,
+                  ),
+                  decoration: BoxDecoration(),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Form(
+                          key: _model.formKey,
+                          autovalidateMode: AutovalidateMode.disabled,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 12.0, 0.0, 8.0),
+                                child: Autocomplete<String>(
+                                  initialValue: TextEditingValue(
+                                      text: valueOrDefault<String>(
+                                    extraDetailsEventsRecord.ageLimit
+                                        .toString(),
+                                    '13',
+                                  )),
+                                  optionsBuilder: (textEditingValue) {
+                                    if (textEditingValue.text == '') {
+                                      return const Iterable<String>.empty();
+                                    }
+                                    return ['0', '13', '16', '18', '21']
+                                        .where((option) {
+                                      final lowercaseOption =
+                                          option.toLowerCase();
+                                      return lowercaseOption.contains(
+                                          textEditingValue.text.toLowerCase());
+                                    });
+                                  },
+                                  optionsViewBuilder:
+                                      (context, onSelected, options) {
+                                    return AutocompleteOptionsList(
+                                      textFieldKey: _model.ageLimitKey,
+                                      textController:
+                                          _model.ageLimitController!,
+                                      options: options.toList(),
+                                      onSelected: onSelected,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      textHighlightStyle: TextStyle(),
+                                      elevation: 4.0,
+                                      optionBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                      optionHighlightColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      maxHeight: 300.0,
+                                    );
+                                  },
+                                  onSelected: (String selection) {
+                                    setState(() => _model
+                                        .ageLimitSelectedOption = selection);
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  fieldViewBuilder: (
+                                    context,
+                                    textEditingController,
+                                    focusNode,
+                                    onEditingComplete,
+                                  ) {
+                                    _model.ageLimitFocusNode = focusNode;
 
-                                _model.ageLimitController =
-                                    textEditingController;
-                                return TextFormField(
-                                  key: _model.ageLimitKey,
-                                  controller: textEditingController,
-                                  focusNode: focusNode,
-                                  onEditingComplete: onEditingComplete,
-                                  textCapitalization: TextCapitalization.none,
-                                  textInputAction: TextInputAction.next,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Age Restriction',
-                                    hintText:
-                                        'Enter the minimum age required to attend this event.',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .bodySmall
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .grayIcon,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  maxLength: 3,
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  buildCounter: (context,
-                                          {required currentLength,
-                                          required isFocused,
-                                          maxLength}) =>
-                                      null,
-                                  keyboardType: TextInputType.number,
-                                  validator: _model.ageLimitControllerValidator
-                                      .asValidator(context),
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]'))
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-1.00, 0.00),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 12.0),
-                              child: Text(
-                                'If your event has no age limit, enter \"0\"',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Montserrat',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 11.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 8.0),
-                            child: Autocomplete<String>(
-                              initialValue: TextEditingValue(
-                                  text: valueOrDefault<String>(
-                                extraDetailsEventsRecord.dressCode,
-                                'Stylish and comfy🔥',
-                              )),
-                              optionsBuilder: (textEditingValue) {
-                                if (textEditingValue.text == '') {
-                                  return const Iterable<String>.empty();
-                                }
-                                return ['13', '16', '18', '21'].where((option) {
-                                  final lowercaseOption = option.toLowerCase();
-                                  return lowercaseOption.contains(
-                                      textEditingValue.text.toLowerCase());
-                                });
-                              },
-                              optionsViewBuilder:
-                                  (context, onSelected, options) {
-                                return AutocompleteOptionsList(
-                                  textFieldKey: _model.dressCodeKey,
-                                  textController: _model.dressCodeController!,
-                                  options: options.toList(),
-                                  onSelected: onSelected,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  textHighlightStyle: TextStyle(),
-                                  elevation: 4.0,
-                                  optionBackgroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  optionHighlightColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  maxHeight: 300.0,
-                                );
-                              },
-                              onSelected: (String selection) {
-                                setState(() =>
-                                    _model.dressCodeSelectedOption = selection);
-                                FocusScope.of(context).unfocus();
-                              },
-                              fieldViewBuilder: (
-                                context,
-                                textEditingController,
-                                focusNode,
-                                onEditingComplete,
-                              ) {
-                                _model.dressCodeFocusNode = focusNode;
-
-                                _model.dressCodeController =
-                                    textEditingController;
-                                return TextFormField(
-                                  key: _model.dressCodeKey,
-                                  controller: textEditingController,
-                                  focusNode: focusNode,
-                                  onEditingComplete: onEditingComplete,
-                                  textCapitalization: TextCapitalization.none,
-                                  textInputAction: TextInputAction.next,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Dress Code',
-                                    hintText:
-                                        'Enter the dress code for your event',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .bodySmall
-                                        .override(
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .grayIcon,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                  ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  maxLength: 3,
-                                  maxLengthEnforcement:
-                                      MaxLengthEnforcement.enforced,
-                                  buildCounter: (context,
-                                          {required currentLength,
-                                          required isFocused,
-                                          maxLength}) =>
-                                      null,
-                                  keyboardType: TextInputType.number,
-                                  validator: _model.dressCodeControllerValidator
-                                      .asValidator(context),
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp('[0-9]'))
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 4.0, 0.0, 0.0),
-                                    child: TextFormField(
-                                      controller:
-                                          _model.refundPolicyController ??=
-                                              TextEditingController(
-                                        text: valueOrDefault<String>(
-                                          extraDetailsEventsRecord.refundPolicy,
-                                          'Contact the event Organizer to find out more about refunds. ',
-                                        ),
-                                      ),
-                                      focusNode: _model.refundPolicyFocusNode,
+                                    _model.ageLimitController =
+                                        textEditingController;
+                                    return TextFormField(
+                                      key: _model.ageLimitKey,
+                                      controller: textEditingController,
+                                      focusNode: focusNode,
+                                      onEditingComplete: onEditingComplete,
+                                      textCapitalization:
+                                          TextCapitalization.none,
+                                      textInputAction: TextInputAction.next,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Refund Policy',
+                                        labelText: 'Age Restriction',
                                         hintText:
-                                            'Enter your refund policy here',
+                                            'Enter the minimum age required to attend this event.',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
@@ -518,7 +304,8 @@ class _ExtraDetailsWidgetState extends State<ExtraDetailsWidget> {
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color(0x00000000),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             width: 1.0,
                                           ),
                                           borderRadius:
@@ -540,179 +327,554 @@ class _ExtraDetailsWidgetState extends State<ExtraDetailsWidget> {
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                20.0, 32.0, 20.0, 12.0),
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
-                                      textAlign: TextAlign.start,
-                                      maxLines: 5,
+                                      maxLength: 3,
+                                      maxLengthEnforcement:
+                                          MaxLengthEnforcement.enforced,
+                                      buildCounter: (context,
+                                              {required currentLength,
+                                              required isFocused,
+                                              maxLength}) =>
+                                          null,
+                                      keyboardType: TextInputType.number,
                                       validator: _model
-                                          .refundPolicyControllerValidator
+                                          .ageLimitControllerValidator
                                           .asValidator(context),
-                                    ),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[0-9]'))
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-1.00, 0.00),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 12.0),
+                                  child: Text(
+                                    'If your event has no age limit, enter \"0\"',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Montserrat',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 11.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 2.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Select Event privacy',
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 12.0, 0.0, 8.0),
+                                child: Autocomplete<String>(
+                                  initialValue: TextEditingValue(
+                                      text: valueOrDefault<String>(
+                                    extraDetailsEventsRecord.dressCode,
+                                    'Stylish and comfy🔥',
+                                  )),
+                                  optionsBuilder: (textEditingValue) {
+                                    if (textEditingValue.text == '') {
+                                      return const Iterable<String>.empty();
+                                    }
+                                    return ['13', '16', '18', '21']
+                                        .where((option) {
+                                      final lowercaseOption =
+                                          option.toLowerCase();
+                                      return lowercaseOption.contains(
+                                          textEditingValue.text.toLowerCase());
+                                    });
+                                  },
+                                  optionsViewBuilder:
+                                      (context, onSelected, options) {
+                                    return AutocompleteOptionsList(
+                                      textFieldKey: _model.dressCodeKey,
+                                      textController:
+                                          _model.dressCodeController!,
+                                      options: options.toList(),
+                                      onSelected: onSelected,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      textHighlightStyle: TextStyle(),
+                                      elevation: 4.0,
+                                      optionBackgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                      optionHighlightColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      maxHeight: 300.0,
+                                    );
+                                  },
+                                  onSelected: (String selection) {
+                                    setState(() => _model
+                                        .dressCodeSelectedOption = selection);
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  fieldViewBuilder: (
+                                    context,
+                                    textEditingController,
+                                    focusNode,
+                                    onEditingComplete,
+                                  ) {
+                                    _model.dressCodeFocusNode = focusNode;
+
+                                    _model.dressCodeController =
+                                        textEditingController;
+                                    return TextFormField(
+                                      key: _model.dressCodeKey,
+                                      controller: textEditingController,
+                                      focusNode: focusNode,
+                                      onEditingComplete: onEditingComplete,
+                                      textCapitalization:
+                                          TextCapitalization.none,
+                                      textInputAction: TextInputAction.next,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Dress Code',
+                                        hintText:
+                                            'Enter the dress code for your event',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .grayIcon,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
+                                      maxLength: 3,
+                                      maxLengthEnforcement:
+                                          MaxLengthEnforcement.enforced,
+                                      buildCounter: (context,
+                                              {required currentLength,
+                                              required isFocused,
+                                              maxLength}) =>
+                                          null,
+                                      keyboardType: TextInputType.number,
+                                      validator: _model
+                                          .dressCodeControllerValidator
+                                          .asValidator(context),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp('[0-9]'))
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 12.0, 0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 0.0, 0.0),
+                                        child: TextFormField(
+                                          controller:
+                                              _model.refundPolicyController ??=
+                                                  TextEditingController(
+                                            text: valueOrDefault<String>(
+                                              extraDetailsEventsRecord
+                                                  .refundPolicy,
+                                              'Contact the event Organizer to find out more about refunds. ',
+                                            ),
+                                          ),
+                                          focusNode:
+                                              _model.refundPolicyFocusNode,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Refund Policy',
+                                            hintText:
+                                                'Enter your refund policy here',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodySmall
+                                                    .override(
+                                                      fontFamily: 'Montserrat',
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayIcon,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20.0, 32.0, 20.0, 12.0),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                          textAlign: TextAlign.start,
+                                          maxLines: 5,
+                                          validator: _model
+                                              .refundPolicyControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                FlutterFlowDropDown<String>(
-                                  controller: _model.dropDownValueController ??=
-                                      FormFieldController<String>(
-                                    _model.dropDownValue ??= 'Public',
-                                  ),
-                                  options: ['Private', 'Public'],
-                                  onChanged: (val) => setState(
-                                      () => _model.dropDownValue = val),
-                                  width: 175.0,
-                                  height: 50.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Montserrat',
-                                        fontSize: 12.0,
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 12.0, 0.0, 2.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Select Event privacy',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                        ),
+                                      ],
+                                    ),
+                                    FlutterFlowDropDown<String>(
+                                      controller: _model
+                                              .privacyDropDownValueController ??=
+                                          FormFieldController<String>(
+                                        _model.privacyDropDownValue ??=
+                                            'Public',
                                       ),
-                                  hintText: 'Please select...',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).lineColor,
-                                  borderWidth: 2.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 4.0, 16.0, 4.0),
-                                  hidesUnderline: true,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
+                                      options: ['Private', 'Public'],
+                                      onChanged: (val) => setState(() =>
+                                          _model.privacyDropDownValue = val),
+                                      width: 175.0,
+                                      height: 50.0,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 12.0,
+                                          ),
+                                      hintText: 'Please select...',
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 2.0,
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .lineColor,
+                                      borderWidth: 2.0,
+                                      borderRadius: 8.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 4.0, 16.0, 4.0),
+                                      hidesUnderline: true,
+                                      isSearchable: false,
+                                      isMultiSelect: false,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              if (_model.privacyDropDownValue == 'Private')
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.00, 0.00),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Private events are only accessible via the link below. It will not be found on searches or listings. Click on it to copy it share with your guests.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Montserrat',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.00, 0.00),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          logFirebaseEvent(
+                                              'EXTRA_DETAILS_Container_4n6rc5dk_ON_TAP');
+                                          logFirebaseEvent(
+                                              'Container_copy_to_clipboard');
+                                          await Clipboard.setData(ClipboardData(
+                                              text:
+                                                  'https://webapp.pamo.events/eventDetails?eventDetails=${extraDetailsEventsRecord.reference.id}'));
+                                          logFirebaseEvent(
+                                              'Container_show_snack_bar');
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Copied to clipboard',
+                                                style: GoogleFonts.getFont(
+                                                  'Montserrat',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 4.0, 0.0, 0.0),
+                                            child: SelectionArea(
+                                                child: Text(
+                                              'https://webapp.pamo.events/eventDetails?eventDetails=${extraDetailsEventsRecord.reference.id}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Montserrat',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .linkColour,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            ],
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(-1.00, 0.00),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 4.0, 0.0, 0.0),
-                              child: Text(
-                                'Private events are only accessible via ',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'EXTRA_DETAILS_CONTINUE_TO_CONNECT_CENTER');
+                                if (_model.privacyDropDownValue == 'Private') {
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await widget.eventRef!
+                                      .update(createEventsRecordData(
+                                    ageLimit: valueOrDefault<int>(
+                                      int.tryParse(
+                                          _model.ageLimitController.text),
+                                      13,
+                                    ),
+                                    refundPolicy: valueOrDefault<String>(
+                                      extraDetailsEventsRecord.refundPolicy,
+                                      'Contact the event Organizer to find out more about refunds. ',
+                                    ),
+                                    dressCode: valueOrDefault<String>(
+                                      extraDetailsEventsRecord.dressCode,
+                                      'Stylish and comfy🔥',
+                                    ),
+                                    isPrivate: true,
+                                  ));
+                                  logFirebaseEvent('Button_show_snack_bar');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Your event has been updated successfully',
+                                        style: GoogleFonts.getFont(
+                                          'Montserrat',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                    ),
+                                  );
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed(
+                                    'connectCenter',
+                                    queryParameters: {
+                                      'eve': serializeParam(
+                                        extraDetailsEventsRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  logFirebaseEvent('Button_backend_call');
+
+                                  await widget.eventRef!
+                                      .update(createEventsRecordData(
+                                    ageLimit: valueOrDefault<int>(
+                                      int.tryParse(
+                                          _model.ageLimitController.text),
+                                      13,
+                                    ),
+                                    refundPolicy: valueOrDefault<String>(
+                                      extraDetailsEventsRecord.refundPolicy,
+                                      'Contact the event Organizer to find out more about refunds. ',
+                                    ),
+                                    dressCode: valueOrDefault<String>(
+                                      extraDetailsEventsRecord.dressCode,
+                                      'Stylish and comfy🔥',
+                                    ),
+                                    isPrivate: false,
+                                  ));
+                                  logFirebaseEvent('Button_show_snack_bar');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Your event has been updated successfully',
+                                        style: GoogleFonts.getFont(
+                                          'Montserrat',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                    ),
+                                  );
+                                  logFirebaseEvent('Button_navigate_to');
+
+                                  context.pushNamed(
+                                    'connectCenter',
+                                    queryParameters: {
+                                      'eve': serializeParam(
+                                        extraDetailsEventsRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                }
+                              },
+                              text: 'Continue to Connect Center',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 50.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
                                     .override(
                                       fontFamily: 'Montserrat',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
                                     ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            logFirebaseEvent(
-                                'EXTRA_DETAILS_PAGE_NEXT_BTN_ON_TAP');
-                            logFirebaseEvent('Button_backend_call');
-
-                            await widget.eventRef!
-                                .update(createEventsRecordData(
-                              ageLimit: valueOrDefault<int>(
-                                int.tryParse(_model.ageLimitController.text),
-                                13,
-                              ),
-                              refundPolicy: valueOrDefault<String>(
-                                extraDetailsEventsRecord.refundPolicy,
-                                'Contact the event Organizer to find out more about refunds. ',
-                              ),
-                              dressCode: valueOrDefault<String>(
-                                extraDetailsEventsRecord.dressCode,
-                                'Stylish and comfy🔥',
-                              ),
-                            ));
-                            logFirebaseEvent('Button_show_snack_bar');
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Your event has been updated successfully',
-                                  style: GoogleFonts.getFont(
-                                    'Montserrat',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                              ),
-                            );
-                            logFirebaseEvent('Button_navigate_to');
-
-                            context.pushNamed(
-                              'connectCenter',
-                              queryParameters: {
-                                'eve': serializeParam(
-                                  extraDetailsEventsRecord.reference,
-                                  ParamType.DocumentReference,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                          text: 'Next',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Montserrat',
-                                  color: Colors.white,
-                                ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

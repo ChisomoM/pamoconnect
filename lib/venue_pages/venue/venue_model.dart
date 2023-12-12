@@ -8,6 +8,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/request_manager.dart';
+
 import 'package:map_launcher/map_launcher.dart' as $ml;
 import 'venue_widget.dart' show VenueWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,6 +39,24 @@ class VenueModel extends FlutterFlowModel<VenueWidget> {
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
+  /// Query cache managers for this widget.
+
+  final _venueBookingRequestsManager =
+      StreamRequestManager<List<BookingRequestsRecord>>();
+  Stream<List<BookingRequestsRecord>> venueBookingRequests({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<BookingRequestsRecord>> Function() requestFn,
+  }) =>
+      _venueBookingRequestsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearVenueBookingRequestsCache() => _venueBookingRequestsManager.clear();
+  void clearVenueBookingRequestsCacheKey(String? uniqueKey) =>
+      _venueBookingRequestsManager.clearRequest(uniqueKey);
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
@@ -44,6 +64,10 @@ class VenueModel extends FlutterFlowModel<VenueWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
+
+    /// Dispose query cache managers for this widget.
+
+    clearVenueBookingRequestsCache();
   }
 
   /// Action blocks are added here.

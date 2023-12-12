@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/tickets/add_ticket/add_ticket_widget.dart';
-import '/tickets/edit_ticket/edit_ticket_widget.dart';
+import '/tickets/edit_tickett/edit_tickett_widget.dart';
 import '/tickets/no_tickets/no_tickets_widget.dart';
 import 'event_tickets_widget.dart' show EventTicketsWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';

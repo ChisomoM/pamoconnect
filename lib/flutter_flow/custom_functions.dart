@@ -11,6 +11,7 @@ import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 double? avgRating(List<int>? ratings) {
@@ -24,4 +25,22 @@ double? avgRating(List<int>? ratings) {
   }
   var avg = sum / ratings.length;
   return avg;
+}
+
+dynamic saveChatHistory(
+  dynamic chatHistory,
+  dynamic newChat,
+) {
+  // If chatHistory isn't a list, make it a list and then add newChat
+  if (chatHistory is List) {
+    chatHistory.add(newChat);
+    return chatHistory;
+  } else {
+    return [newChat];
+  }
+}
+
+dynamic convertToJSON(String prompt) {
+  // take the prompt and return a JSON with form [{"role": "user", "content": prompt}]
+  return json.decode('{"role": "user", "content": "$prompt"}');
 }
